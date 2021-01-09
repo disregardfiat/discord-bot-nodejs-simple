@@ -58,7 +58,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                msg.reply(`You've got ${parseFloat(result.balance/1000).toFixed(3)} DLUX and ${parseFloat(r.poweredUp/1000).toFixed(3)} Powered Up`)
+                msg.reply(`You've got ${parseFloat(result.balance/1000).toFixed(3)} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3)} Powered Up`)
             })
             .catch(e => { console.log(e) })
     }
