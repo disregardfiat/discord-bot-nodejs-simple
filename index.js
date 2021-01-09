@@ -83,7 +83,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `DLUX is currently worth ${parseFloat(result.stats.HiveVWMA.rate).toFixed(3)} HIVE, and ${parseFloat(result.stats.HbdVWMA.rate).toFixed(3)} HIVE on the DEX}`
+                let ms = `DLUX is currently worth ${parseFloat(result.stats.HiveVWMA.rate).toFixed(3)} HIVE, and ${parseFloat(result.stats.HbdVWMA.rate).toFixed(3)} HIVE on the DEX`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
