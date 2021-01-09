@@ -112,15 +112,16 @@ client.on('message', msg => {
             .catch(e => { console.log(e) })
     }
     if (msg.content.startsWith('!dluxdiss')) {
+        console.log(msg)
         let ms,
             mja = momma_jokes.split('\n'),
-            mj = mjs[(Math.random() * mja.length)]
+            mj = mja[parseInt((Math.random() * mja.length))]
         if (msg.content.split(' ')[1]) {
             ms = mj.replace('DiscordUser', msg.content.split(' ')[1])
         } else {
             ms = mj.replace('DiscordUser', 'a1-shroom-spores')
         }
-        ms = JSON.stringify(msg)
+        ms = 'Stop picking on a1' //JSON.stringify(msg)
         msg.channel.send(ms)
     }
 });
