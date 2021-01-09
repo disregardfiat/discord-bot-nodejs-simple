@@ -1,6 +1,7 @@
 const { Client, RichEmbed } = require('discord.js');
 const { token } = require('./config')
 const fetch = require('node-fetch')
+const { momma_jokes } = require('./momma')
 
 const client = new Client();
 
@@ -111,15 +112,16 @@ client.on('message', msg => {
             .catch(e => { console.log(e) })
     }
     if (msg.content.startsWith('!dluxdiss')) {
-        fetch(`https://token.dlux.io/@ri`)
-            .then(r => {
-                return r.json()
-            })
-            .then(result => {
-                let ms = `@a1-shroom-spores isn't done yet, why should you be?`
-                msg.channel.send(ms)
-            })
-            .catch(e => { console.log(e) })
+        let ms,
+            mja = momma_jokes.split('\n'),
+            mj = mjs[(Math.random() * mja.length)]
+        if (msg.content.split(' ')[1]) {
+            ms = mj.replace('DiscordUser', msg.content.split(' ')[1])
+        } else {
+            //ms = mj.replace(, msg.content.split(' ')[1])
+        }
+        let ms = JSON.stringify(msg)
+        msg.channel.send(ms)
     }
 });
 
