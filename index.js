@@ -69,11 +69,11 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let msg = ``
+                let ms = ``
                 for (account in result.runners) {
-                    msg += '@' + account + '\n'
+                    ms += '@' + account + '\n'
                 }
-                msg.channel.send(msg)
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
@@ -83,8 +83,8 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let msg = `DLUX is currently worth ${result.HiveVWMA.rate.toFixed(3)} HIVE, and ${result.HbdVWMA.rate.toFixed(3)} HIVE on the DEX}`
-                msg.channel.send(msg)
+                let ms = `DLUX is currently worth ${result.HiveVWMA.rate.toFixed(3)} HIVE, and ${result.HbdVWMA.rate.toFixed(3)} HIVE on the DEX}`
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
@@ -94,8 +94,8 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let msg = `There's ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX for sell at 1.000 HIVE.`
-                msg.channel.send(msg)
+                let ms = `There's ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX for sell at 1.000 HIVE.`
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
@@ -105,8 +105,19 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let msg = `Availible commands:\n!dluxrunners\n!dluxico\n!dluxhive\n!dlux hiveaccount`
-                msg.channel.send(msg)
+                let ms = `Availible commands:\n!dluxrunners\n!dluxico\n!dluxhive\n!dlux hiveaccount`
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+    }
+    if (msg.content.startsWith('!dluxdiss')) {
+        fetch(`https://token.dlux.io/@ri`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ms = `@a1-shroom-spores isn't done yet, why should you be?`
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
