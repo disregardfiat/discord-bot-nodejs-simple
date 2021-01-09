@@ -62,6 +62,21 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+
+    if (msg.content.startsWith('!dluxrunners')) {
+        fetch(`https://token.dlux.io/runners`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let msg = ``
+                for (account in result.runners) {
+                    msg += '@' + account + '\n'
+                }
+                msg.channel.send(msg)
+            })
+            .catch(e => { console.log(e) })
+    }
 });
 
 client.login(token);
