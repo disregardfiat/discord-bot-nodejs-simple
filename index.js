@@ -120,7 +120,7 @@ client.on('message', msg => {
         } else {
             ms = mj.replace('DiscordUser', 'a1-shroom-spores')
         }
-        let ms = JSON.stringify(msg)
+        ms = JSON.stringify(msg)
         msg.channel.send(ms)
     }
 });
