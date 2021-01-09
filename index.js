@@ -118,7 +118,7 @@ client.on('message', msg => {
         if (msg.content.split(' ')[1]) {
             ms = mj.replace('DiscordUser', msg.content.split(' ')[1])
         } else {
-            //ms = mj.replace(, msg.content.split(' ')[1])
+            ms = mj.replace('DiscordUser', 'a1-shroom-spores')
         }
         let ms = JSON.stringify(msg)
         msg.channel.send(ms)
