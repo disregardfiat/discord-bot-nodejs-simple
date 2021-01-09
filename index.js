@@ -88,6 +88,17 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith('!dluxico')) {
+        fetch(`https://token.dlux.io/@ri`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let msg = `There's ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX for sell at 1.000 HIVE.`
+                msg.channel.send(msg)
+            })
+            .catch(e => { console.log(e) })
+    }
 });
 
 client.login(token);
