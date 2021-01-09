@@ -7,7 +7,7 @@ const client = new Client();
 client.on('ready', () => {
     console.log('Bot Now connected!');
     console.log('Logged In as', client.user.tag)
-    client.user.setStatus('dnd'); // online, idle, invisible, dnd
+    client.user.setStatus('online'); // online, idle, invisible, dnd
 
     console.log('Bot status: ', client.user.presence.status);
 
