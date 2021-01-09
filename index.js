@@ -117,9 +117,9 @@ client.on('message', msg => {
             mja = momma_jokes.split('\n'),
             mj = mja[parseInt((Math.random() * mja.length))]
         if (msg.content.split(' ')[1]) {
-            ms = mj.replace('DiscordUser', msg.content.split(' ')[1])
+            ms = mj.replace('DiscordUser', msg.content.split(' ')[1] + "'s")
         } else {
-            ms = mj.replace('DiscordUser', msg.author.username)
+            ms = mj.replace('DiscordUser', msg.author.username + "'s")
         }
         msg.channel.send(ms)
     }
