@@ -99,6 +99,17 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith('!dluxhelp')) {
+        fetch(`https://token.dlux.io/@ri`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let msg = `Availible commands:\n!dluxrunners\n!dluxico\n!dluxhive\n!dlux hiveaccount`
+                msg.channel.send(msg)
+            })
+            .catch(e => { console.log(e) })
+    }
 });
 
 client.login(token);
