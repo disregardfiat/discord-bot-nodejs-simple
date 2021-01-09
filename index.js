@@ -1,4 +1,6 @@
 const { Client, RichEmbed } = require('discord.js');
+const { token } = require('./config')
+const fetch = require('node-fetch')
 
 const client = new Client();
 
@@ -12,12 +14,13 @@ client.on('ready', () => {
     // Bot sending a Message to a text channel called test
     const testChannel = client.channels.find(x => x.name === 'test')
     console.log(testChannel)
-    // client.channels.find(c => c.name === 'test').send('Hello Server!')
+        // client.channels.find(c => c.name === 'test').send('Hello Server!')
 
 });
 
 // Bot listenning messages
 client.on('message', msg => {
+    /*
     console.log(msg.content)
     if (msg.content === 'ping') {
         msg.reply('pong')
@@ -47,24 +50,18 @@ client.on('message', msg => {
             .setAuthor('Fazt', 'https://pngimage.net/wp-content/uploads/2018/05/code-logo-png-4.png');
         msg.channel.send(embed);
     }
-
+*/
     // Deleting 100 messages
-    if (msg.content.startsWith('!clean')) {
-        async function clear() {
-            try {
-                // await msg.delete();
-                const fetched = await msg.channel.fetchMessages({limit: 99});
-                msg.channel.bulkDelete(fetched);;
-                console.log('Messages deleted');
-            }
-            catch (e) {
-                console.log(e);
-            }
-        }
-        clear();
+    if (msg.content.startsWith('!dlux')) {
+        fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                msg.reply(`You've got ${parseFloat(r.balance/1000).toFixed(3)} DLUX and ${parseFloat(r.poweredUp/1000).toFixed(3)} Powered Up`)
+            })
+            .catch(e => { console.log(e) })
     }
 });
 
-
-const token = 'NTM5ODYzMTAxOTUzMDE1ODEz.DzIiXQ.abZZlw_vs1zkKQ4qEMEpZUgAno4';
 client.login(token);
