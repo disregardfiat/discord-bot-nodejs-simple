@@ -119,9 +119,8 @@ client.on('message', msg => {
         if (msg.content.split(' ')[1]) {
             ms = mj.replace('DiscordUser', msg.content.split(' ')[1])
         } else {
-            ms = mj.replace('DiscordUser', 'a1-shroom-spores')
+            ms = mj.replace('DiscordUser', msg.author.username)
         }
-        ms = 'Stop picking on a1' //JSON.stringify(msg)
         msg.channel.send(ms)
     }
 });
