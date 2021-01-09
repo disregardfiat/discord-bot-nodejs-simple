@@ -52,16 +52,26 @@ client.on('message', msg => {
     }
 */
     // Deleting 100 messages
-    if (msg.content.startsWith('!dlux')) {
+    if (msg.content.split(' ')[0] == '!dlux') {
         fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
             .then(r => {
                 return r.json()
             })
             .then(result => {
-                msg.reply(`${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3)} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3)} Powered Up`)
+                msg.channel.send(`@${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
             })
             .catch(e => { console.log(e) })
     }
 });
 
 client.login(token);
+
+String.prototype.commafy = function() {
+    return this.replace(/(^|[^\w.])(\d{4,})/g, function($0, $1, $2) {
+        return $1 + $2.replace(/\d(?=(?:\d\d\d)+(?!\d))/g, "$&,");
+    });
+};
+
+Number.prototype.commafy = function() {
+    return String(this).commafy();
+};
