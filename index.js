@@ -77,6 +77,17 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith('!dluxhive')) {
+        fetch(`https://token.dlux.io/stats`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let msg = `DLUX is currently worth ${result.HiveVWMA.rate.toFixed(3)} HIVE, and ${result.HbdVWMA.rate.toFixed(3)} HIVE on the DEX}`
+                msg.channel.send(msg)
+            })
+            .catch(e => { console.log(e) })
+    }
 });
 
 client.login(token);
