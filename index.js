@@ -70,8 +70,22 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = ``
+                let ms = `Nodes in control:`
                 for (account in result.runners) {
+                    ms += '@' + account + '\n'
+                }
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+    }
+    if (msg.content.startsWith('!dluxqueue')) {
+        fetch(`https://token.dlux.io/queue`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ms = `Nodes in Consensus:`
+                for (account in result.queue) {
                     ms += '@' + account + '\n'
                 }
                 msg.channel.send(ms)
