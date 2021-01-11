@@ -70,9 +70,30 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Nodes in control:`
+                let ms = `Nodes in control:\n`
                 for (account in result.runners) {
                     ms += '@' + account + '\n'
+                }
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+    }
+    if (msg.content.startsWith('!dluxstats')) {
+        fetch(`https://token.dlux.io/`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ms = `Stats:\n`
+                for (key in result.stats) {
+                    if (typeof result.stats[key] == 'number' || typeof result.stats[key] == 'string') {
+                        ms += `${key}: ${result.stats[key]}\n`
+                    } else {
+                        ms += `${key}:\n`
+                        for (item in result.stats[key]) {
+                            ms += `\t${item}: ${result.stats[key][item]}\n`
+                        }
+                    }
                 }
                 msg.channel.send(ms)
             })
@@ -84,7 +105,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Nodes in Consensus:`
+                let ms = `Nodes in Consensus:\n`
                 for (account in result.queue) {
                     ms += '@' + account + '\n'
                 }
