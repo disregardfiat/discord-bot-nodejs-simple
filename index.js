@@ -106,11 +106,11 @@ client.on('message', msg => {
             Promise.all(res.map(res => res.json()))
         ).then(jsons => {
             let result = jsons[1]
-            let runners = jsons[0]
+            let result2 = jsons[0]
             let ms = `Nodes in Consensus:\n`
             for (account in result.queue) {
                 let icon = ':eye:'
-                if (runners.runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
+                if (result2.runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
                 ms += `@${account} ${icon}\n`
             }
             msg.channel.send(ms)
