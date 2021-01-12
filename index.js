@@ -140,13 +140,38 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith('!dluxrecents')) {
+        fetch(`https://token.dlux.io/feed`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ops = []
+                let items = 0
+                for (item in result.feed) {
+                    const block = item.split(':')[0]
+                    if (result.feed[item].split('|')[1] != ' Report processed') {
+                        ops[items] = `${block}|${result.feed[item]}`
+                        items++
+                    }
+                }
+                let ms = ``
+                let past = parseInt(msg.content.split(' ')[1])
+                if (typeof past != 'number' || past > 20) past = 20
+                for (i = ops.length - 1; i > ops.length - past; i--) {
+                    ms += `${ops[i]}\n`
+                }
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+    }
     if (msg.content.startsWith('!dluxhelp')) {
         fetch(`https://token.dlux.io/@ri`)
             .then(r => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Availible commands:\n!dluxrunners\n!dluxico\n!dluxhive\n!dlux hiveaccount`
+                let ms = `Availible commands:\n!dluxnodes\n!dluxico\n!dluxhive\n!dlux hiveaccount\n!dluxstats\n!dluxrecents`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
