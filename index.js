@@ -111,7 +111,7 @@ client.on('message', msg => {
             for (account in result.queue) {
                 let icon = ':eye:'
                 if (result2.runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
-                ms += `@${account} ${icon}\n`
+                ms += `${icon} @${account}\n`
             }
             msg.channel.send(ms)
 
