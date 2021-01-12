@@ -156,7 +156,7 @@ client.on('message', msg => {
                     }
                 }
                 let ms = ``
-                let past = parseInt(msg.content.split(' ')[1])
+                let past = parseInt(msg.content.split(' ')[1]) + 1
                 if (typeof past != 'number' || past > 20) past = 20
                 for (i = ops.length - 1; i > ops.length - past; i--) {
                     ms += `${ops[i]}\n`
