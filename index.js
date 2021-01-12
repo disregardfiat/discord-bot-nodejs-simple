@@ -59,7 +59,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                msg.channel.send(`@${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
+                msg.channel.send(`:moneybag:@${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
             })
             .catch(e => { console.log(e) })
     }
@@ -84,7 +84,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Stats:\n`
+                let ms = `:bar_chart:Stats:\n`
                 for (key in result.stats) {
                     if (typeof result.stats[key] == 'number' || typeof result.stats[key] == 'string') {
                         ms += `${key}: ${result.stats[key]}\n`
@@ -124,7 +124,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `DLUX is currently worth ${parseFloat(result.stats.HiveVWMA.rate).toFixed(3)} HIVE, and ${parseFloat(result.stats.HbdVWMA.rate).toFixed(3)} HIVE on the DEX`
+                let ms = `:chart:DLUX is currently worth ${parseFloat(result.stats.HiveVWMA.rate).toFixed(3)} HIVE, and ${parseFloat(result.stats.HbdVWMA.rate).toFixed(3)} HBD on the DEX`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
@@ -140,7 +140,7 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
-    if (msg.content.startsWith('!dluxrecents')) {
+    if (msg.content.startsWith('!dluxfeed')) {
         fetch(`https://token.dlux.io/feed`)
             .then(r => {
                 return r.json()
@@ -174,7 +174,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Availible commands:\n!dluxnodes\n!dluxico\n!dluxhive\n!dlux hiveaccount\n!dluxstats\n!dluxrecents`
+                let ms = `Availible commands:\n!dluxnodes -Nodes in Control:closed_lock_with_key: and Consensus:eye: \n!dluxico -ICO Round Info\n!dluxhive -price\n!dlux [hiveaccount] -hiveaccount balances\n!dluxstats\n!dluxfeed [3-20]`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
