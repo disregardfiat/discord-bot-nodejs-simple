@@ -99,19 +99,24 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
-    if (msg.content.startsWith('!dluxqueue')) {
-        fetch(`https://token.dlux.io/queue`)
-            .then(r => {
-                return r.json()
-            })
-            .then(result => {
-                let ms = `Nodes in Consensus:\n`
-                for (account in result.queue) {
-                    ms += '@' + account + '\n'
-                }
-                msg.channel.send(ms)
-            })
-            .catch(e => { console.log(e) })
+    if (msg.content.startsWith('!dluxnodes')) {
+        var urls = [`https://token.dlux.io/runners`, 'https://token.dlux.io/queue'] //datasources
+        let promises = urls.map(u => fetch(u))
+        Promise.all(promises).then(res =>
+            Promise.all(res.map(res => res.json()))
+        ).then(jsons => {
+            let result = jsons[1]
+            let runners = jsons[0]
+            let ms = `Nodes in Consensus:\n`
+            for (account in result.queue) {
+                let icon = ':eye:'
+                if (runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
+                ms += `@${account} ${icon}\n`
+            }
+            msg.channel.send(ms)
+
+        }).catch(e => { console.log(e) })
+
     }
     if (msg.content.startsWith('!dluxhive')) {
         fetch(`https://token.dlux.io/stats`)
