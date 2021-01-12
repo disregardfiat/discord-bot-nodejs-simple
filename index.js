@@ -110,7 +110,7 @@ client.on('message', msg => {
             let ms = `Nodes in Consensus:\n`
             for (account in result.queue) {
                 let icon = ':eye:'
-                if (runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
+                if (runners.runners.hasOwnProperty(account)) icon = ':closed_lock_with_key:'
                 ms += `@${account} ${icon}\n`
             }
             msg.channel.send(ms)
