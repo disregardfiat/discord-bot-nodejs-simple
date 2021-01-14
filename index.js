@@ -53,7 +53,16 @@ client.on('message', msg => {
         }
     */
     // Deleting 100 messages
-    if (msg.content.split(' ')[0] == '!dlux') {
+    if (msg.content == '!dlux ats-david') {
+        fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                msg.channel.send(`:moneybag:@${msg.content.split(' ')[1]} has Twice all the DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
+            })
+            .catch(e => { console.log(e) })
+    } else if (msg.content.split(' ')[0] == '!dlux') {
         fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
             .then(r => {
                 return r.json()
