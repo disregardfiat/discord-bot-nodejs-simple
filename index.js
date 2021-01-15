@@ -71,7 +71,7 @@ client.on('message', msg => {
                 }
                 if (result.gov) reply += `:classical_building: ${parseFloat(result.gov/1000).toFixed(3).commafy()} DLUXG\n`
                 if (result.heldCollateral) reply += `:chart_with_upwards_trend: ${parseFloat(result.heldCollateral/1000).toFixed(3).commafy()} DLUXG held as collateral and earning :man_office_worker:`
-                msg.channel.send(`:moneybag:@${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
+                msg.channel.send(reply)
             })
             .catch(e => { console.log(e) })
     }
