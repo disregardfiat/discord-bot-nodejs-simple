@@ -53,21 +53,24 @@ client.on('message', msg => {
         }
     */
     // Deleting 100 messages
-    if (msg.content == '!dlux ats-david') {
+    if (msg.content.split(' ')[0] == '!dlux') {
         fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
             .then(r => {
                 return r.json()
             })
             .then(result => {
-                msg.channel.send(`:moneybag:@${msg.content.split(' ')[1]} has Twice all the DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
-            })
-            .catch(e => { console.log(e) })
-    } else if (msg.content.split(' ')[0] == '!dlux') {
-        fetch(`https://token.dlux.io/@${msg.content.split(' ')[1]}`)
-            .then(r => {
-                return r.json()
-            })
-            .then(result => {
+                let reply = `@${msg.content.split(' ')[1]} DLUX balances:\n`
+                reply += `:money_with_wings: ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX\n`
+                if (result.poweredUp) reply += `:flashlight: ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered DLUX\n`
+                if (Object.keys(result.contracts)) {
+                    var sum = 0
+                    for (c in result.contracts) {
+                        sum += result.contracts.amount
+                    }
+                    if (sum) reply += `:currency_exchange: ${parseFloat(sum/1000).toFixed(3).commafy()} DLUX in open orders.\n`
+                }
+                if (result.gov) reply += `:classical_building: ${parseFloat(result.gov/1000).toFixed(3).commafy()} DLUXG\n`
+                if (result.heldCollateral) reply += `:chart_with_upwards_trend: ${parseFloat(result.heldCollateral/1000).toFixed(3).commafy()} DLUXG held as collateral and earning :man_office_worker:`
                 msg.channel.send(`:moneybag:@${msg.content.split(' ')[1]} has ${parseFloat(result.balance/1000).toFixed(3).commafy()} DLUX and ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered Up`)
             })
             .catch(e => { console.log(e) })
