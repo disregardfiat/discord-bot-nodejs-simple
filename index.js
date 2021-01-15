@@ -65,7 +65,7 @@ client.on('message', msg => {
                 if (Object.keys(result.contracts)) {
                     var sum = 0
                     for (c in result.contracts) {
-                        sum += result.contracts.amount
+                        sum += result.contracts[c].amount
                     }
                     if (sum) reply += `:currency_exchange: ${parseFloat(sum/1000).toFixed(3).commafy()} DLUX in open orders.\n`
                 }
