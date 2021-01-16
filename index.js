@@ -90,6 +90,20 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith('!dluxcheck')) {
+        fetch(`https://token.dlux.io/coin`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ms = `${result.check}`
+                for (account in result.info) {
+                    ms += `\t${account}: ${result.info[account]}\n`
+                }
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+    }
     if (msg.content.startsWith('!dluxstats')) {
         fetch(`https://token.dlux.io/`)
             .then(r => {
