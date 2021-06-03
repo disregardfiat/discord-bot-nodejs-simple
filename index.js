@@ -418,7 +418,7 @@ client.on('message', msg => {
                 } else {
                     ms = `You have ${parseFloat(result.balance/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to lock`
                 }
-                msg.channel.send(reply)
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
@@ -459,7 +459,7 @@ client.on('message', msg => {
                 } else {
                     ms = `You have ${parseFloat(result.gov/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to unlock`
                 }
-                msg.channel.send(reply)
+                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
     }
