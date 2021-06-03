@@ -600,7 +600,8 @@ function newBuy(msg, opts) { //!${coin}dexnewbuy[pair] [price] [qty] [account]
                 hbd: "0.000",
                 hive: "0.000"
             },
-            escrowTimer = {}
+            escrowTimer = {},
+            now = new Date()
         escrowTimer.ratifyIn = now.setHours(now.getHours() + 1);
         escrowTimer.ratifyUTC = new Date(escrowTimer.ratifyIn);
         escrowTimer.ratifyString = escrowTimer.ratifyUTC.toISOString().slice(0, -5);
@@ -654,7 +655,8 @@ function sell(msg, opts) {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
             contract = ram[`${opts.type}`][msg.author][parseInt(tx) - 1],
-            escrowTimer = {}
+            escrowTimer = {},
+            now = new Date()
         escrowTimer.ratifyIn = now.setHours(now.getHours() + 1);
         escrowTimer.ratifyUTC = new Date(escrowTimer.ratifyIn);
         escrowTimer.ratifyString = escrowTimer.ratifyUTC.toISOString().slice(0, -5);
