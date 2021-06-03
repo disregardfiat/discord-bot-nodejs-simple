@@ -601,7 +601,7 @@ function buy(msg, opts) {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
             contractID = ram[opts.type][msg.author][parseInt(tx) -1]
-        console.log({ resAccount, contractID },dex[opts.pair].buyOrders[contractID] )
+        console.log({ resAccount, contractID, ram }, dex[opts.pair].buyOrders[contractID] )
         let ms = ''
             // Do checks to give a good link
         var params = {
@@ -609,7 +609,7 @@ function buy(msg, opts) {
             "required_posting_auths": 0,
             "id": `${coin}_dex_sell`,
             "json": JSON.stringify({
-                contract,
+                contractID,
                 for: dex[opts.pair].buyOrders[contractID].from,
                 dlux: dex[opts.pair].buyOrders[contractID].amount
             })
