@@ -231,6 +231,7 @@ client.on('message', msg => {
                     i = 0
                 ram.bh[msg.author] = [0]
                 for (item in result.markets.hive.buyOrders) {
+                    console.log(item)
                     i++
                     ram.bh[msg.author].push(item)
                     ms += `  ${i}: ${parseFloat(result.markets.hive.buyOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.markets.hive.buyOrders[item].hive / 1000).toFixed(3)} HIVE. Fee ${parseFloat(result.markets.hive.buyOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
@@ -600,8 +601,8 @@ function buy(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contractID = ram[opts.type][msg.author][parseInt(tx) -1]
-        console.log({ resAccount, contractID, ram }, dex[opts.pair].buyOrders[contractID] )
+            contractID = ram[opts.type][msg.author][parseInt(tx) -1] //ram.bh[msg.author]
+        console.log({ resAccount, contractID, ram, opts }, dex[opts.pair].buyOrders[contractID] )
         let ms = ''
             // Do checks to give a good link
         var params = {
