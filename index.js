@@ -391,7 +391,7 @@ client.on('message', msg => {
             to = msg.content.split(' ')[2],
             from = msg.content.split(' ')[1].toLowerCase(),
             params = {
-                "required_auths": [account],
+                "required_auths": [from],
                 "required_posting_auths": 0,
                 "id": `${coin}_send`
             }
