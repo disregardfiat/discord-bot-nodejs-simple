@@ -207,7 +207,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Availible commands:\n!${coin}dexhelp -Detailed DEX Help\n!${coin}govhelp -Detailed Governance Help\n!${coin}nodes -Nodes in Control:closed_lock_with_key: and Consensus:eye: \n!${coin}ico -ICO Round Info\n!${coin}hive -price\n!${coin} [hiveaccount] -hiveaccount balances\n!${coin}stats\n!${coin}feed [3-20]`
+                let ms = `Availible commands:\n!${coin}dexhelp -Detailed DEX Help\n!${coin}govhelp -Detailed Governance Help\n!${coin}send [from] [to] [qty] - Send ${coin.toUpperCase()} \`!${coin}send myaccount theiraccount 1000.000\`\n!${coin}nodes -Nodes in Control:closed_lock_with_key: and Consensus:eye: \n!${coin}ico -ICO Round Info\n!${coin}hive -price\n!${coin} [hiveaccount] -hiveaccount balances\n!${coin}stats\n!${coin}feed [3-20]`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
@@ -384,6 +384,42 @@ client.on('message', msg => {
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
+    }
+    //`!${coin}send [from] [to] [qty] `
+    if (msg.content.startsWith(`!${coin}send`)) {
+        let qty = parseInt(parseFloat(msg.content.split(' ')[3]) * 1000),
+            to = msg.content.split(' ')[2],
+            from = msg.content.split(' ')[1].toLowerCase(),
+            params = {
+                "required_auths": [account],
+                "required_posting_auths": 0,
+                "id": `${coin}_send`
+            }
+        checkAccount(to)
+        .then(rto=> {
+            fetch(`${coinapi}/@${from}`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let ms = ''
+                if (result.balance >= qty) {
+                    let amount = qty
+                    params.json = JSON.stringify({
+                                 to,
+                                 amount
+                             })
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                } else {
+                    ms = `You have ${parseFloat(result.balance/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to send`
+                }
+                msg.channel.send(ms)
+            })
+            .catch(e => { console.log(e) })
+        })
+        .catch(e=>{
+            msg.channel.send(`@${to} is not a valid Hive account`)
+        })
     }
     //`!${coin}govup [account] [qty] [\`%\`
     if (msg.content.startsWith(`!${coin}govup`)) {
