@@ -236,7 +236,7 @@ client.on('message', msg => {
                     ms += `  ${i}: ${parseFloat(result.markets.hive.buyOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.markets.hive.buyOrders[item].hive / 1000).toFixed(3)} HIVE. Fee ${parseFloat(result.markets.hive.buyOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
                 if (i) {
-                    ms += `\nSend \`!${coin}dexnewbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order`
+                    ms += `\nSend \`!${coin}dexbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order`
                 } else {
                     ms = `There are no open buy orders at this time\nSend \`!${coin}dexnewbuyhive [price] [qty] [account]\` to buy qty ${coin.toUpperCase()} @price`
                 }
@@ -260,7 +260,7 @@ client.on('message', msg => {
                     ms += `  ${i}: ${parseFloat(result.hbd.buyOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.hbd.buyOrders[item].hbd / 1000).toFixed(3)} HBD. Fee ${parseFloat(result.hbd.buyOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
                 if (i) {
-                    ms += `\nSend \`!${coin}dexnewbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order`
+                    ms += `\nSend \`!${coin}dexbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order`
                 } else {
                     ms = `There are no open buy orders at this time\nSend \`!${coin}dexnewbuyhbd [price] [qty] [account]\` to buy qty ${coin.toUpperCase()} @price`
                 }
@@ -285,7 +285,7 @@ client.on('message', msg => {
                     ms += `${i}: ${parseFloat(result.markets.hive.sellOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.markets.hive.sellOrders[item].hive / 1000).toFixed(3)} HIVE. Fee ${parseFloat(result.markets.hive.sellOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
                 if (i) {
-                    ms += `\nSend \`!${coin}dexnewsellhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order.`
+                    ms += `\nSend \`!${coin}dexsellhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order.`
                 } else {
                     ms = `There are no open sell orders at this time\nSend \`!${coin}dexnewsellhive [price] [qty] [account]\` to sell qty ${coin.toUpperCase()} @price`
                 }
@@ -310,7 +310,7 @@ client.on('message', msg => {
                     ms += `${i}: ${parseFloat(result.hbd.sellOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.hbd.sellOrders[item].hbd / 1000).toFixed(3)} HBD. Fee ${parseFloat(result.hbd.sellOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
                 if (i) {
-                    ms += `\nSend \`!${coin}dexnewsellhbd [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order.`
+                    ms += `\nSend \`!${coin}dexsellhbd [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order.`
                 } else {
                     ms = `There are no open sell orders at this time\nSend \`!${coin}dexnewsellhbd [price] [qty] [account]\` to sell qty ${coin.toUpperCase()} @price`
                 }
@@ -564,7 +564,7 @@ function sell(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contract = ram[`${opts.type}`][msg.author][tx].split(':')[1]
+            contract = ram[`${opts.type}`][msg.author][tx.split(':')[1]]
         console.log({ resAccount })
         let ms = ''
             // Do checks to give a good link
