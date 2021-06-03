@@ -257,6 +257,7 @@ client.on('message', msg => {
                 ram.bd[msg.author] = []
                 for (item in result.hbd.buyOrders) {
                     i++
+                    console.log(item)
                     ram.bd[msg.author].push(item)
                     ms += `  ${i}: ${parseFloat(result.hbd.buyOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.hbd.buyOrders[item].hbd / 1000).toFixed(3)} HBD. Fee ${parseFloat(result.hbd.buyOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
@@ -410,7 +411,7 @@ client.on('message', msg => {
                                  to,
                                  amount
                              })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else {
                     ms = `You have ${parseFloat(result.balance/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to send`
                 }
@@ -448,14 +449,14 @@ client.on('message', msg => {
                     params.json = JSON.stringify({
                         amount
                     })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else if (per && qty <= 100 && qty > 0) {
                     let q = parseInt(parseFloat(msg.content.split(' ')[2]) * 1000)
                     let amount = parseInt(result.balance * (q / 100000))
                     params.json = JSON.stringify({
                         amount
                     })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else {
                     ms = `You have ${parseFloat(result.balance/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to lock`
                 }
@@ -489,14 +490,14 @@ client.on('message', msg => {
                     params.json = JSON.stringify({
                         amount
                     })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else if (per && qty <= 100 && qty > 0) {
                     let q = parseInt(parseFloat(msg.content.split(' ')[2]) * 1000)
                     let amount = parseInt(result.gov * (q / 100000))
                     params.json = JSON.stringify({
                         amount
                     })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=${params.required_auths}&required_posting_auths=${params.required_posting_auths}&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else {
                     ms = `You have ${parseFloat(result.gov/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to unlock`
                 }
