@@ -564,7 +564,7 @@ function sell(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contract = ram[`${opts.type}`][msg.author][tx.split(':')[1]]
+            contract = ram[`${opts.type}`][msg.author][tx]
         console.log({ resAccount })
         let ms = ''
             // Do checks to give a good link
