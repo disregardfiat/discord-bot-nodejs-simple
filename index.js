@@ -229,7 +229,7 @@ client.on('message', msg => {
             .then(result => {
                 let ms = `Open HIVE for ${coin.toUpperCase()} Buy Orders:\n`,
                     i = 0
-                ram.bh[msg.author] = [0]
+                ram.bh[msg.author] = []
                 for (item in result.markets.hive.buyOrders) {
                     console.log(item)
                     i++
