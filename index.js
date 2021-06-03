@@ -654,7 +654,8 @@ function sell(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contract = ram[`${opts.type}`][msg.author][parseInt(tx) - 1],
+            contractID = ram[`${opts.type}`][msg.author][parseInt(tx) - 1],
+            contract = dex[opts.pair].sellOrders[contractID],
             escrowTimer = {},
             now = new Date()
         escrowTimer.ratifyIn = now.setHours(now.getHours() + 1);
