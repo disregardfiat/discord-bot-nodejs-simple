@@ -664,7 +664,6 @@ function sell(msg, opts) {
         escrowTimer.expiryIn = now.setHours(now.getHours() + 1 + 1);
         escrowTimer.expiryUTC = new Date(escrowTimer.expiryIn);
         escrowTimer.expiryString = escrowTimer.expiryUTC.toISOString().slice(0, -5);
-        console.log({ resAccount })
         let ms = '',
             to = getAgent(jsons[0].queue, contract.amount, account),
             agent = getAgent(jsons[0].queue, contract.amount, account, to),
@@ -679,8 +678,8 @@ function sell(msg, opts) {
             rat: escrowTimer.ratifyString,
             exp: escrowTimer.expiryString,
             json: JSON.stringify({
-                contract,
-                for: dex[opts.pair].sellOrders[contract].from
+                contractID,
+                for: contract.from
             })
         }
         if (params.to == 'er' || params.agent == 'er') {
