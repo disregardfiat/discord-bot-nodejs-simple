@@ -615,8 +615,8 @@ function newBuy(msg, opts) { //!${coin}dexnewbuy[pair] [price] [qty] [account]
         }
         console.log({ resAccount })
         let ms = '',
-            to = getAgent(dex.queue, contract.amount),
-            agent = getAgent(dex.queue, contract.amount, to),
+            to = getAgent(jsons[0].queue, contract.amount),
+            agent = getAgent(jsons[0].queue, contract.amount, to),
             id = parseInt(Math.random() * 1000000)
         var params = {
             from: account,
@@ -665,8 +665,8 @@ function sell(msg, opts) {
         escrowTimer.expiryString = escrowTimer.expiryUTC.toISOString().slice(0, -5);
         console.log({ resAccount })
         let ms = '',
-            to = getAgent(dex.queue, contract.amount, account),
-            agent = getAgent(dex.queue, contract.amount, account, to),
+            to = getAgent(jsons[0].queue, contract.amount, account),
+            agent = getAgent(jsons[0].queue, contract.amount, account, to),
             id = parseInt(Math.random() * 1000000)
         var params = {
             from: account,
