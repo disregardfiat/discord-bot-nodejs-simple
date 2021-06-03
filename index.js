@@ -274,7 +274,7 @@ client.on('message', msg => {
             .then(result => {
                 let ms = `Open ${coin.toUpperCase()} for HIVE Sell Orders:\n`,
                     i = 0
-                ram.sh[msg.author] = []
+                ram?.sh?.[msg.author] = []
                 for (item in result.markets.hive.sellOrders) {
                     i++
                     ram.sh[msg.author].push(item)
