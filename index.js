@@ -602,8 +602,8 @@ function buy(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contractID = ram[opts.type][msg.author][parseInt(tx) -1] //ram.bh[msg.author]
-        console.log({ resAccount, contractID, ram, opts, dex }, dex[opts.pair].buyOrders[contractID] )
+            contractID = ram[opts.type][msg.author][tx -1] //ram.bh[msg.author]
+        console.log({ tx, resAccount, contractID, ram, opts, dex }, dex[opts.pair].buyOrders[contractID] )
         let ms = ''
             // Do checks to give a good link
         var params = {
