@@ -320,14 +320,14 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
-    if (msg.content.startsWith(`${coin}dexbuyhive`)) { //!${coin}dexbuy[pair] [number] [account]
+    if (msg.content.startsWith(`!${coin}dexbuyhive`)) { //!${coin}dexbuy[pair] [number] [account]
         let opts = {
             pair: 'hive',
             type: 'bh'
         }
         buy(msg, opts)
     }
-    if (msg.content.startsWith(`${coin}dexbuyhbd`)) { //!${coin}dexbuy[pair] [number] [account]
+    if (msg.content.startsWith(`!${coin}dexbuyhbd`)) { //!${coin}dexbuy[pair] [number] [account]
         let opts = {
             pair: 'hbd',
             type: 'bd'
