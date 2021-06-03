@@ -660,7 +660,7 @@ function sell(msg, opts) {
         escrowTimer.ratifyIn = now.setHours(now.getHours() + 1);
         escrowTimer.ratifyUTC = new Date(escrowTimer.ratifyIn);
         escrowTimer.ratifyString = escrowTimer.ratifyUTC.toISOString().slice(0, -5);
-        escrowTimer.expiryIn = now.setHours(now.getHours() + 1 + until);
+        escrowTimer.expiryIn = now.setHours(now.getHours() + 1 + 1);
         escrowTimer.expiryUTC = new Date(escrowTimer.expiryIn);
         escrowTimer.expiryString = escrowTimer.expiryUTC.toISOString().slice(0, -5);
         console.log({ resAccount })
