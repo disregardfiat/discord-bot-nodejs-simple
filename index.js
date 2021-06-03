@@ -665,10 +665,9 @@ function sell(msg, opts) {
         escrowTimer.expiryString = escrowTimer.expiryUTC.toISOString().slice(0, -5);
         console.log({ resAccount })
         let ms = '',
-            to = getAgent(dex.queue, contract.amount),
-            agent = getAgent(dex.queue, contract.amount, to),
-            id = parseInt(Math.random() * 1000000),
-            dexsel = ''
+            to = getAgent(dex.queue, contract.amount, account),
+            agent = getAgent(dex.queue, contract.amount, account, to),
+            id = parseInt(Math.random() * 1000000)
         var params = {
             from: account,
             to,
@@ -693,10 +692,11 @@ function sell(msg, opts) {
     }).catch(e => { console.log(e) })
 }
 
-function getAgent(q, c, a) {
+function getAgent(q, c, s, a) {
+    console.log(q)
     let p = []
     for (i in q) {
-        if (c / 2 < q[i].g && i != a) {
+        if (c / 2 < q[i].g && i != a && i != s) {
             p.push(i)
         }
     }
