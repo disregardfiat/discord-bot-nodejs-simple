@@ -574,8 +574,8 @@ function sell(msg, opts) {
             "id": `${coin}_dex_sell`,
             "json": JSON.stringify({
                 contract,
-                for: receiver, //attn
-                dlux: u //attn
+                for: dex[opts.pair].sellOrders[contract].co,
+                dlux: dex[opts.pair].sellOrders[contract].amount
             })
         }
         ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
