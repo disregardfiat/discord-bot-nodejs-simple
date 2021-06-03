@@ -600,8 +600,8 @@ function buy(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contract = ram[opts.type][msg.author][parseInt(tx) -1]
-        console.log({ resAccount, contract },dex[opts.pair].buyOrders[contract] )
+            contractID = ram[opts.type][msg.author][parseInt(tx) -1]
+        console.log({ resAccount, contractID },dex[opts.pair].buyOrders[contractID] )
         let ms = ''
             // Do checks to give a good link
         var params = {
@@ -610,8 +610,8 @@ function buy(msg, opts) {
             "id": `${coin}_dex_sell`,
             "json": JSON.stringify({
                 contract,
-                for: dex[opts.pair].buyOrders[contract].co,
-                dlux: dex[opts.pair].buyOrders[contract].amount
+                for: dex[opts.pair].buyOrders[contractID].from,
+                dlux: dex[opts.pair].buyOrders[contractID].amount
             })
         }
         ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
