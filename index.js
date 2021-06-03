@@ -554,7 +554,7 @@ function newSell(msg, opts) {
         .catch(e => { console.log(e) })
 }
 
-function sell(msg, opts) {
+function buy(msg, opts) {
     let tx = parseInt(msg.content.split(' ')[1]) || 1,
         account = msg.content.split(' ')[2].toLowerCase(),
         urls = [`${coinapi}/dex`, `${coinapi}/@${account}`], //datasources
@@ -565,7 +565,7 @@ function sell(msg, opts) {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
             contract = ram[opts.type][msg.author][parseInt(tx) -1]
-        console.log({ resAccount, contract },dex[opts.pair].sellOrders[contract] )
+        console.log({ resAccount, contract },dex[opts.pair].buyOrders[contract] )
         let ms = ''
             // Do checks to give a good link
         var params = {
@@ -574,8 +574,8 @@ function sell(msg, opts) {
             "id": `${coin}_dex_sell`,
             "json": JSON.stringify({
                 contract,
-                for: dex[opts.pair].sellOrders[contract].co,
-                dlux: dex[opts.pair].sellOrders[contract].amount
+                for: dex[opts.pair].buyOrders[contract].co,
+                dlux: dex[opts.pair].buyOrders[contract].amount
             })
         }
         ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
@@ -643,7 +643,7 @@ function newBuy(msg, opts) { //!${coin}dexnewbuy[pair] [price] [qty] [account]
     }).catch(e => { console.log(e) })
 }
 
-function buy(msg, opts) {
+function sell(msg, opts) {
     let tx = parseInt(msg.content.split(' ')[1]) || 1,
         account = msg.content.split(' ')[2].toLowerCase(),
         urls = [`${coinapi}/dex`, `${coinapi}/@${account}`], //datasources
@@ -653,7 +653,7 @@ function buy(msg, opts) {
     ).then(jsons => {
         let dex = jsons[0].markets,
             resAccount = jsons[1],
-            contract = ram[`${opts.type}`][msg.author][tx.split(':')[1]],
+            contract = ram[`${opts.type}`][msg.author][parseInt(tx) - 1],
             escrowTimer = {}
         escrowTimer.ratifyIn = now.setHours(now.getHours() + 1);
         escrowTimer.ratifyUTC = new Date(escrowTimer.ratifyIn);
