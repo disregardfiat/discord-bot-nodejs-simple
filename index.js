@@ -693,7 +693,7 @@ function sell(msg, opts) {
 }
 
 function getAgent(q, c, s, a) {
-    console.log(q)
+    if(!a){a='a'}
     let p = []
     for (i in q) {
         if (c / 2 < q[i].g && i != a && i != s) {
