@@ -3,7 +3,11 @@ const { token, coin, coinapi } = require('./config')
 const fetch = require('node-fetch')
 var ram = {
     tickHive: 0.1234,
-    tickHbd: 0.1234
+    tickHbd: 0.1234,
+    bh: {},
+    bd: {},
+    sh: {},
+    sd: {}
 }
 
 const client = new Client();
@@ -274,7 +278,7 @@ client.on('message', msg => {
             .then(result => {
                 let ms = `Open ${coin.toUpperCase()} for HIVE Sell Orders:\n`,
                     i = 0
-                ram?.sh?.[msg.author] = []
+                ram.sh[msg.author] = []
                 for (item in result.markets.hive.sellOrders) {
                     i++
                     ram.sh[msg.author].push(item)
