@@ -629,7 +629,7 @@ function newBuy(msg, opts) { //!${coin}dexnewbuy[pair] [price] [qty] [account]
             exp: escrowTimer.expiryString,
             json: JSON.stringify({
                 dextx: {
-                    dlux: qty,
+                    [`${coin}`]: qty,
                     hours: 60
                 }
             })
@@ -678,7 +678,7 @@ function sell(msg, opts) {
             rat: escrowTimer.ratifyString,
             exp: escrowTimer.expiryString,
             json: JSON.stringify({
-                contractID,
+                contract: contractID,
                 for: contract.from
             })
         }
