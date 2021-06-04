@@ -547,9 +547,9 @@ function newSell(msg, opts) {
                         // Do checks to give a good link
                     if (parseFloat(qty) > 0.0) {
                         if ((qty * 1000) > resAccount.balance) {
-                            qty = resAccount.balance
+                            qty = resAccount.balance /1000
                         } else {
-                            qty = parseInt(qty * 1000)
+                            qty = parseFloat(qty)
                         }
                         if (parseFloat(price) > 0.0) {
                             if (hours >= 1) {
@@ -563,7 +563,7 @@ function newSell(msg, opts) {
                             }
                             price = parseFloat(price).toFixed(4)
                             var dlux = parseInt(parseFloat(qty) * 1000),
-                                amount = parseInt(parseFloat(qty) * parseFloat(price) * 1000),
+                                amount = parseInt(parseFloat(qty) * parseFloat(price)),
                                 params = {
                                     "required_auths": [account],
                                     "required_posting_auths": 0,
@@ -616,7 +616,7 @@ function buy(msg, opts) {
                 dlux: `${parseFloat(dex[opts.pair].buyOrders[contractID].amount / 1000).toFixed(3)}%20${coin.toUpperCase()}`
             })
         }
-        ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+        ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 3-5 Minutes for reciept of ${opts.pair.toUpperCase()}`
 
         msg.channel.send(ms)
     }).catch(e => { console.log(e) })
