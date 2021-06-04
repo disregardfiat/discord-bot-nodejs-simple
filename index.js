@@ -608,12 +608,12 @@ function buy(msg, opts) {
             // Do checks to give a good link
         var params = {
             "required_auths": [account],
-            "required_posting_auths": 0,
+            "required_posting_auths": [],
             "id": `${coin}_dex_sell`,
             "json": JSON.stringify({
-                contractID,
+                contract: contractID,
                 for: dex[opts.pair].buyOrders[contractID].from,
-                dlux: dex[opts.pair].buyOrders[contractID].amount
+                dlux: `${parseFloat(dex[opts.pair].buyOrders[contractID].amount / 1000).toFixed(3)} ${coin.toUpperCase()})`
             })
         }
         ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
@@ -730,18 +730,18 @@ function sell(msg, opts) {
     }).catch(e => { console.log(e) })
 }
 
-function getAgent(q, c, s, a) {
-    if(!a){a='a'}
-    let p = []
+function getAgent(q, coin, self, optFirst) { //literally queue
+    if(!optFirst){a='a'}//assure logic in checks
+    let pool = []
     for (i in q) {
-        if (c / 2 < q[i].g && i != a && i != s) {
-            p.push(i)
+        if (coin / 2 < q[i].g && i != a && i != self) { //.g is gov balance
+            pool.push(i)
         }
     }
-    if (p.length) {
-        return p[parseInt(Math.random() * p.length)]
+    if (pool.length) {
+        return pool[parseInt(Math.random() * pool.length)]
     } else {
-        return 'er'
+        return 'er' //longer returns may result in namespace collision
     }
 }
 
