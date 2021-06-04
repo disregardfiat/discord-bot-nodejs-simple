@@ -1,5 +1,5 @@
 const { Client, RichEmbed } = require('discord.js');
-const { token, coin, coinapi } = require('./config')
+const { token, coin, coinapi, coinlogo} = require('./config')
 const fetch = require('node-fetch')
 var ram = {
     tickHive: 0.1234,
@@ -242,6 +242,23 @@ client.on('message', msg => {
                     ms = `There are no open buy orders at this time\nSend \`!${coin}dexnewbuyhive [price] [qty] [account]\` to buy qty ${coin.toUpperCase()} @price`
                 }
                 ms += `\nLast trade price ${result.markets.hive.tick}/HIVE`
+                const embed = {
+  "title": `Sell ${coin.toUpperCase} to Buy HIVE`,
+  "description": `Last trade price ${result.markets.hive.tick}/HIVE`,
+  "url": "https://discordapp.com",
+  "color": 16174111,
+  "footer": {
+    "icon_url": coinlogo,
+    "text": "${coin} to the :first_quarter_moon_with_face:"
+  },
+  "author": {
+    "name": "DEX Tech",
+    "icon_url": coinlogo
+  },
+  "fields": [
+  ]
+};
+//msg.channel.send(ms, { embed })
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
@@ -411,11 +428,21 @@ client.on('message', msg => {
                                  to,
                                  amount
                              })
-                    ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
+                    const embed = {
+  "title": `@${from}'s Send Link`,
+  "description": `HiveSigner Link for @${from} to Send ${(amount/1000).toFixed(3)} ${coin.toUpperCase} to @${to}`,
+  "url": `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}`,
+  "footer": {
+    "icon_url": "https://cdn.discordapp.com/attachments/534553113433210902/850461330405589032/dlux-hive-logo.png",
+    "text": `${coin.toUpperCase()} to the 🌛`
+  }
+}
+msg.channel.send({embed})
+                    //ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
                 } else {
                     ms = `You have ${parseFloat(result.balance/1000).toFixed(3).commafy()} ${coin.toUpperCase()} availible to send`
+                    msg.channel.send(ms)
                 }
-                msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
         })
