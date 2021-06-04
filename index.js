@@ -237,7 +237,7 @@ client.on('message', msg => {
                     ms += `  ${i}: ${parseFloat(result.markets.hive.buyOrders[item].amount / 1000).toFixed(3)} ${coin.toUpperCase()} listed for ${parseFloat(result.markets.hive.buyOrders[item].hive / 1000).toFixed(3)} HIVE. Fee ${parseFloat(result.markets.hive.buyOrders[item].fee / 1000).toFixed(3)} ${coin.toUpperCase()}\n`
                 }
                 if (i) {
-                    ms += `\nSend \`!${coin}dexbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order`
+                    ms += `\nSend \`!${coin}dexbuyhive [Order (probably 1)] [hiveaccount]\` to recieve a HiveSigner Link to purchase order.`
                 } else {
                     ms = `There are no open buy orders at this time\nSend \`!${coin}dexnewbuyhive [price] [qty] [account]\` to buy qty ${coin.toUpperCase()} @price`
                 }
@@ -609,7 +609,7 @@ function buy(msg, opts) {
         var params = {
             "required_auths": [account],
             "required_posting_auths": [],
-            "id": `${coin}_dex_sell`,
+            "id": `${coin}_dex_buy`,
             "json": JSON.stringify({
                 contract: contractID,
                 for: dex[opts.pair].buyOrders[contractID].from,
