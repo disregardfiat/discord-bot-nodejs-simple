@@ -563,7 +563,7 @@ function newSell(msg, opts) {
                             }
                             price = parseFloat(price).toFixed(4)
                             var dlux = parseInt(parseFloat(qty) * 1000),
-                                amount = parseInt(parseFloat(qty) * parseFloat(price)),
+                                amount = parseInt(parseFloat(qty) * parseFloat(price) * 1000),
                                 params = {
                                     "required_auths": [account],
                                     "required_posting_auths": 0,
