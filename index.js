@@ -613,7 +613,7 @@ function buy(msg, opts) {
             "json": JSON.stringify({
                 contract: contractID,
                 for: dex[opts.pair].buyOrders[contractID].from,
-                dlux: `${parseFloat(dex[opts.pair].buyOrders[contractID].amount / 1000).toFixed(3)} ${coin.toUpperCase()})`
+                dlux: `${parseFloat(dex[opts.pair].buyOrders[contractID].amount / 1000).toFixed(3)} ${coin.toUpperCase()}`
             })
         }
         ms = `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}\nExpect 60-75 Seconds for Confirmation`
