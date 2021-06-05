@@ -430,7 +430,7 @@ client.on('message', msg => {
                              })
                     const embed = {
   "title": `@${from}'s Send Link`,
-  "description": `HiveSigner Link for @${from} to Send ${(amount/1000).toFixed(3)} ${coin.toUpperCase} to @${to}`,
+  "description": `HiveSigner Link for @${from} to Send ${parseFloat(amount/1000).toFixed(3)} ${coin.toUpperCase} to @${to}`,
   "url": `https://hivesigner.com/sign/custom-json?authority=active&required_auths=%5B%22${params.required_auths}%22%5D&required_posting_auths=%5B%5D&id=${params.id}&json=${params.json}`,
   "footer": {
     "icon_url": "https://cdn.discordapp.com/attachments/534553113433210902/850461330405589032/dlux-hive-logo.png",
