@@ -126,10 +126,9 @@ client.on('message', msg => {
                         method: "POST"
                         }))
                 }
-                Promise.all(P)
-                .then(res =>
-                    res.map(res => res.json())
-                )
+                Promise.all(P).then(res =>
+            Promise.all(res.map(res => res.json()))
+        )
                 .then(content =>{
                     console.log(content)
                     console.log(content[0])
