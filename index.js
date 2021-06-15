@@ -109,7 +109,7 @@ client.on('message', msg => {
                     "color": 16174111,
                     "footer": {
                         "icon_url": coinlogo,
-                        "text": `${coin} to the :first_quarter_moon_with_face:`
+                        "text": `${coin} to the 🌛`
                     },
                     "author": {
                         "name": "Robotolux",
