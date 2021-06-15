@@ -100,6 +100,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
+                console.log(result)
                 let embed = {
                     "title": `Newest ${coin.toUpperCase} Content`,
                     "description": `In Chronologic Order:`,
