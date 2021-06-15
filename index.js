@@ -131,6 +131,8 @@ client.on('message', msg => {
                     res.map(res => res.json())
                 )
                 .then(content =>{
+                    console.log(content)
+                    console.log(content[0])
                     for (i in content){
                         embed.fields.push({
                             name: `[${content[i].title}](https://peakd.com/@${content[i].author}/${content[i].permlink})`,
