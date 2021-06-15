@@ -71,14 +71,14 @@ client.on('message', msg => {
                 if (result.poweredUp){ 
                     reply += `:flashlight: ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered ${coin.toUpperCase()}\n`
                     if(Object.keys(result.up).length){
-                        reply += `:+1: ${parseFloat(result.up.power/result.up.max).toFixed(2)} Vote Power\n`
+                        reply += `\t:+1: ${parseFloat(100*result.up.power/result.up.max).toFixed(2)} Vote Power\n`
                     } else {
-                        reply += `:+1: 100 % Vote Power\n`
+                        reply += `\t:+1: 100 % Vote Power\n`
                     }
                     if(Object.keys(result.down).length){
-                        `:-1: ${parseFloat(result.down.power/result.down.max).toFixed(2)} Vote Power\n`
+                        reply += `\t  :-1: ${parseFloat(100*result.down.power/result.down.max).toFixed(2)} Vote Power\n`
                     } else {
-                        reply += `:-1: 100 % Downvote Power\n`
+                        reply += `\t  :-1: 100 % Downvote Power\n`
                     }
                 }
                 if (Object.keys(result.contracts)) {
