@@ -109,7 +109,7 @@ client.on('message', msg => {
                     "color": 16174111,
                     "footer": {
                         "icon_url": coinlogo,
-                        "text": "${coin} to the :first_quarter_moon_with_face:"
+                        "text": `${coin} to the :first_quarter_moon_with_face:`
                     },
                     "author": {
                         "name": "Robotolux",
@@ -136,8 +136,8 @@ client.on('message', msg => {
                     console.log(content[0])
                     for (i in content){
                         embed.fields.push({
-                            name: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
-                            value: `By @${content[i].result.author}`,
+                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
+                            name: `By @${content[i].result.author}`,
                             inline: false,
                         })
                     }
