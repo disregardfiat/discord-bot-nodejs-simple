@@ -136,8 +136,8 @@ client.on('message', msg => {
                     console.log(content[0])
                     for (i in content){
                         embed.fields.push({
-                            name: `[${content[i].title}](https://peakd.com/@${content[i].author}/${content[i].permlink})`,
-                            value: `By @${content[i].author}`,
+                            name: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
+                            value: `By @${content[i].result.author}`,
                             inline: false,
                         })
                     }
