@@ -71,14 +71,14 @@ client.on('message', msg => {
                 if (result.poweredUp){ 
                     reply += `:flashlight: ${parseFloat(result.poweredUp/1000).toFixed(3).commafy()} Powered ${coin.toUpperCase()}\n`
                     if(Object.keys(result.up).length){
-                        reply += `\t:+1: ${parseFloat(100*result.up.power/result.up.max).toFixed(2)} Vote Power\n`
+                        reply += `\t:+1: ${parseFloat(100*result.up.power/result.up.max).toFixed(2)}% Vote Power\n`
                     } else {
-                        reply += `\t:+1: 100 % Vote Power\n`
+                        reply += `\t:+1: 100.00% Vote Power\n`
                     }
                     if(Object.keys(result.down).length){
-                        reply += `\t  :-1: ${parseFloat(100*result.down.power/result.down.max).toFixed(2)} Vote Power\n`
+                        reply += `\t  :-1: ${parseFloat(100*result.down.power/result.down.max).toFixed(2)}% Vote Power\n`
                     } else {
-                        reply += `\t  :-1: 100 % Downvote Power\n`
+                        reply += `\t  :-1: 100.00% Downvote Power\n`
                     }
                 }
                 if (Object.keys(result.contracts)) {
@@ -94,7 +94,55 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
-
+    if (msg.content.startsWith(`!${coin}new`)) {
+        fetch(`${coinapi}/new?a=5`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let embed = {
+                    "title": `Newest ${coin.toUpperCase} Content`,
+                    "description": `In Chronologic Order:`,
+                    "url": "https://dlux.io",
+                    "color": 16174111,
+                    "footer": {
+                        "icon_url": coinlogo,
+                        "text": "${coin} to the :first_quarter_moon_with_face:"
+                    },
+                    "author": {
+                        "name": "Robotolux",
+                        "icon_url": coinlogo
+                    },
+                    "fields": [
+                    ]
+                }
+                let P = []
+                for(i in result){
+                    P.push(fetch("https://api.hive.blog", {
+                        body: `{"jsonrpc":"2.0", "method":"condenser_api.get_content", "params":["${result[i].author}", "${result[i].permlink}"], "id":1}`,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        method: "POST"
+                        }))
+                }
+                Promise.all(P)
+                .then(res =>
+                    res.map(res => res.json())
+                )
+                .then(content =>{
+                    for (i in content){
+                        embed.fields.push({
+                            name: `[${content[i].title}](https://peakd.com/@${result[i].author}/${result[i].permlink})`,
+                            value: `By @${result[i].author}`,
+                            inline: false,
+                        })
+                    }
+                    msg.channel.send(embed)
+                })
+            })
+            .catch(e => { console.log(e) })
+    }
     if (msg.content.startsWith(`!${coin}runners`)) {
         fetch(`${coinapi}/runners`)
             .then(r => {
