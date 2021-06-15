@@ -130,7 +130,7 @@ client.on('message', msg => {
                 .then(content =>{
                     for (i in content){
                         embed.fields.push({
-                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
+                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink}) @PeakD\n[View in VR](https://www.dlux.io/@${content[i].result.author}/${content[i].result.permlink})`,
                             name: `By @${content[i].result.author}`,
                             inline: false,
                         })
@@ -176,7 +176,7 @@ client.on('message', msg => {
                 .then(content =>{
                     for (i in content){
                         embed.fields.push({
-                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
+                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink}) @PeakD\n[View in VR](https://www.dlux.io/@${content[i].result.author}/${content[i].result.permlink})`,
                             name: `By @${content[i].result.author}`,
                             inline: false,
                         })
