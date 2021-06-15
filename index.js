@@ -138,7 +138,7 @@ client.on('message', msg => {
                             inline: false,
                         })
                     }
-                    msg.channel.send(embed)
+                    msg.channel.send({embed})
                 })
             })
             .catch(e => { console.log(e) })
