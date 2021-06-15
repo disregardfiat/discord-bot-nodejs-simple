@@ -94,6 +94,52 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
+    if (msg.content.startsWith(`!${coin}trending`)) {
+        fetch(`${coinapi}/trending?a=5`)
+            .then(r => {
+                return r.json()
+            })
+            .then(res => {
+                const result = res.result
+            
+                let embed = {
+                    "title": `Trending ${coin.toUpperCase()} Content`,
+                    "description": `By Pending Payout:`,
+                    "url": "https://dlux.io",
+                    "color": 16174111,
+                    "footer": {
+                        "icon_url": coinlogo,
+                        "text": `${coin} to the 🌛`
+                    },
+                    "fields": [
+                    ]
+                }
+                let P = []
+                for(i in result){
+                    P.push(fetch("https://api.hive.blog", {
+                        body: `{"jsonrpc":"2.0", "method":"condenser_api.get_content", "params":["${result[i].author}", "${result[i].permlink}"], "id":1}`,
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        method: "POST"
+                        }))
+                }
+                Promise.all(P).then(res =>
+            Promise.all(res.map(res => res.json()))
+        )
+                .then(content =>{
+                    for (i in content){
+                        embed.fields.push({
+                            value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
+                            name: `By @${content[i].result.author}`,
+                            inline: false,
+                        })
+                    }
+                    msg.channel.send({embed})
+                })
+            })
+            .catch(e => { console.log(e) })
+    }
     if (msg.content.startsWith(`!${coin}new`)) {
         fetch(`${coinapi}/new?a=5`)
             .then(r => {
@@ -110,10 +156,6 @@ client.on('message', msg => {
                     "footer": {
                         "icon_url": coinlogo,
                         "text": `${coin} to the 🌛`
-                    },
-                    "author": {
-                        "name": "Robotolux",
-                        "icon_url": coinlogo
                     },
                     "fields": [
                     ]
@@ -268,7 +310,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `Availible commands:\n!${coin}dexhelp -Detailed DEX Help\n!${coin}govhelp -Detailed Governance Help\n!${coin}send [from] [to] [qty] - Send ${coin.toUpperCase()} \`!${coin}send myaccount theiraccount 1000.000\`\n!${coin}nodes -Nodes in Control:closed_lock_with_key: and Consensus:eye: \n!${coin}ico -ICO Round Info\n!${coin}hive -price\n!${coin} [hiveaccount] -hiveaccount balances\n!${coin}stats\n!${coin}feed [3-20]`
+                let ms = `Availible commands:\n!${coin}dexhelp -Detailed DEX Help\n!${coin}govhelp -Detailed Governance Help\n!${coin}send [from] [to] [qty] - Send ${coin.toUpperCase()} \`!${coin}send myaccount theiraccount 1000.000\`\n!${coin}nodes -Nodes in Control:closed_lock_with_key: and Consensus:eye: \n!${coin}trending -Most Voted Votable Content\n!${coin}new -Most Recent Content\n!${coin} [hiveaccount] -hiveaccount balances\n!${coin}stats\n!${coin}feed [3-20]`
                 msg.channel.send(ms)
             })
             .catch(e => { console.log(e) })
