@@ -99,8 +99,9 @@ client.on('message', msg => {
             .then(r => {
                 return r.json()
             })
-            .then(result => {
-                console.log(result)
+            .then(res => {
+                const result = res.result
+            
                 let embed = {
                     "title": `Newest ${coin.toUpperCase} Content`,
                     "description": `In Chronologic Order:`,
