@@ -103,7 +103,7 @@ client.on('message', msg => {
                 const result = res.result
             
                 let embed = {
-                    "title": `Newest ${coin.toUpperCase} Content`,
+                    "title": `Newest ${coin.toUpperCase()} Content`,
                     "description": `In Chronologic Order:`,
                     "url": "https://dlux.io",
                     "color": 16174111,
@@ -132,8 +132,6 @@ client.on('message', msg => {
             Promise.all(res.map(res => res.json()))
         )
                 .then(content =>{
-                    console.log(content)
-                    console.log(content[0])
                     for (i in content){
                         embed.fields.push({
                             value: `[${content[i].result.title}](https://peakd.com/@${content[i].result.author}/${content[i].result.permlink})`,
