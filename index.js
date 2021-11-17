@@ -123,8 +123,8 @@ client.on('message', msg => {
                     reply += `${result[i].set}:${result[i].uid}  `
                 }
                 if (result.length == 0) reply = 'No NFTs found'
-                for(var i = 0; i < mint_tokens.length; i++) {
-                    reply += `\n${mint_tokens[i].set} Mint Token(s): ${mint_tokens[i].qty}`
+                for(var i = 0; i < result.mint_tokens.length; i++) {
+                    reply += `\n${result.mint_tokens[i].set} Mint Token(s): ${result.mint_tokens[i].qty}`
                 }
                 msg.channel.send(reply)
             })
