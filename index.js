@@ -75,7 +75,42 @@ client.on('message', msg => {
             })
             .catch(e => { console.log(e) })
     }
-
+    if (msg.content.split(' ')[0] == '!dluxnfts') {
+        fetch(`https://token.dlux.io/api/nfts/${msg.content.split(' ')[1]}`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let reply = `@${msg.content.split(' ')[1]} NFTs:\n`
+                for (var i = 0; i < result.length; i++) {
+                    reply += `${result[i].set}:${result[i].uid}  `
+                }
+                if (result.length == 0) reply = 'No NFTs found'
+                for(var i = 0; i < mint_tokens.length; i++) {
+                    reply += `\n${mint_tokens[i].set} Mint Token(s): ${mint_tokens[i].qty}`
+                }
+                msg.channel.send(reply)
+            })
+            .catch(e => { console.log(e) })
+    }
+    if (msg.content.split(' ')[0] == '!dluxnft') {
+        fetch(`https://token.dlux.io/api/nfts/${msg.content.split(' ')[1]}`)
+            .then(r => {
+                return r.json()
+            })
+            .then(result => {
+                let reply = `@${msg.content.split(' ')[1]} NFTs:\n`
+                for (var i = 0; i < result.length; i++) {
+                    reply += `${result[i].set}:${result[i].uid}  `
+                }
+                if (result.length == 0) reply = 'No NFTs found'
+                for(var i = 0; i < mint_tokens.length; i++) {
+                    reply += `\n${mint_tokens[i].set} Mint Token(s): ${mint_tokens[i].qty}`
+                }
+                msg.channel.send(reply)
+            })
+            .catch(e => { console.log(e) })
+    }
     if (msg.content.startsWith('!dluxrunners')) {
         fetch(`https://token.dlux.io/runners`)
             .then(r => {
@@ -96,7 +131,7 @@ client.on('message', msg => {
                 return r.json()
             })
             .then(result => {
-                let ms = `${result.check}`
+                let ms = `${result.check}\n`
                 for (account in result.info) {
                     ms += `\t${account}: ${result.info[account]}\n`
                 }
